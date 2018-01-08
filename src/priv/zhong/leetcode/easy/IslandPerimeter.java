@@ -18,12 +18,36 @@ public class IslandPerimeter {
                 {1, 1, 1, 0},
                 {0, 1, 0, 0},
                 {1, 1, 0, 0}};
-        int i = islandPerimeterVer01(grid);
+        int i = islandPerimeterVer02(grid);
         System.out.println(i);
     }
 
+    private static int islandPerimeterVer02(int[][] grid) {//208ms 136ms-over 80%
+        int perimeter = 0;
+        //目前i是行,j是列
+        for (int i = 0; i < grid.length; i++) {
+            int[] currentI = grid[i];
+            for (int j = 0; j < currentI.length; j++) {
+                if (currentI[j] == 1) {
+                    perimeter += 4;
+                    //如果当前格上面有一格并且同一位置有面积,则边长-1
+                    if (i - 1 >= 0 && grid[i - 1][j] != 0) {
+                        System.out.println("当前在" + (i+1) + "行," + (j+1) + "列,上边有格子");
+                        perimeter-=2;
+                    }
+                    //如果当前格左边有一格并且有面积,则边长-1
+                    if (j - 1 >= 0 && currentI[j - 1] != 0) {
+                        System.out.println("当前在" + (i+1) + "行," + (j+1) + "列,左边有格子");
+                        perimeter-=2;
+                    }
 
-    private static int islandPerimeterVer01(int[][] grid) {
+                }
+            }
+        }
+        return perimeter;
+    }
+
+    /*private static int islandPerimeterVer01(int[][] grid) {
         int perimeter = 0;
         //目前i是行,j是列
         for (int i = 0; i < grid.length; i++) {
@@ -55,5 +79,5 @@ public class IslandPerimeter {
             }
         }
         return perimeter;
-    }
+    }*/
 }

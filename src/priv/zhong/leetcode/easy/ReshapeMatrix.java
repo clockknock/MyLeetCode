@@ -1,5 +1,7 @@
 package priv.zhong.leetcode.easy;
 
+import java.util.Arrays;
+
 /**
  * @author 钟未鸣
  * @date 2018/1/6
@@ -20,30 +22,23 @@ public class ReshapeMatrix {
     public static void main(String[] args) {
         int[][] nums ={{1,2},{2,1}};
         int[][] ints = matrixReshape(nums, 1, 2);
-        System.out.println(ints);
     }
 
     private static int[][] matrixReshape(int[][] nums, int r, int c) {
         int[][] target = new int[r][c];
-        int originSize = 0;
         int[] temp = new int[r * c];
-//        int outerLen = nums.length;
-        int index = 0;
-        for (int[] num : nums) {
-//            int innerLen = num.length;
-            for (int aNum : num) {
-                try {
-                    temp[index] = aNum;
-                    originSize++;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    return nums;
-                }
-                index++;
-            }
+
+        //傻了,一开始我还跑去动态添加的时候计算矩阵面积,这直接开始就乘一下不就好了
+        if (nums.length*nums[0].length != r * c) {
+            return nums;
         }
 
-        if (originSize != r * c) {
-            return nums;
+        int index = 0;
+        for (int[] num : nums) {
+            for (int aNum : num) {
+                    temp[index] = aNum;
+                index++;
+            }
         }
 
         index = 0;
